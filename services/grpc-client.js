@@ -20,4 +20,4 @@ class GRcpClient {
   }
 }
 
-module.exports = GRcpClient;
+module.exports = new GRcpClient();
