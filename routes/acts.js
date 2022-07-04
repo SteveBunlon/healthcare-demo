@@ -1,5 +1,6 @@
 const express = require('express');
 const { PermissionMiddlewareCreator } = require('forest-express-sequelize');
+const grpcClientInstance = require('../services/grpc-client');
 const { acts } = require('../models');
 
 const router = express.Router();
@@ -56,6 +57,11 @@ router.get('/acts.csv', permissionMiddlewareCreator.export(), (request, response
 router.delete('/acts', permissionMiddlewareCreator.delete(), (request, response, next) => {
   // Learn what this route does here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/routes/default-routes#delete-a-list-of-records
   next();
+});
+
+router.post('/action/generateAct', permissionMiddlewareCreator.smartAction(), (request, response) => {
+  //TODO do the integ here
+  response.status(200).send();
 });
 
 module.exports = router;

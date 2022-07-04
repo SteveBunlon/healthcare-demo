@@ -88,7 +88,35 @@
       "validations": []
     }],
     "segments": [],
-    "actions": []
+    "actions": [{
+      "name": "generate act",
+      "type": "global",
+      "baseUrl": null,
+      "endpoint": "/forest/actions/generate-act",
+      "httpMethod": "POST",
+      "redirect": null,
+      "download": false,
+      "fields": [{
+        "field": "type",
+        "type": "Enum",
+        "defaultValue": null,
+        "enums": [
+          "order",
+          "surgery",
+          "ophthalmology"
+        ],
+        "isRequired": true,
+        "reference": null,
+        "description": null,
+        "position": 0,
+        "widget": null,
+        "hook": "onTypeChange"
+      }],
+      "hooks": {
+        "change": ["onTypeChange"],
+        "load": false
+      }
+    }]
   }, {
     "name": "patients",
     "nameOld": "patients",
