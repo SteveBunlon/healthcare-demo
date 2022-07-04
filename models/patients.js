@@ -11,12 +11,6 @@ module.exports = (sequelize, DataTypes) => {
     lastName: {
       type: DataTypes.STRING,
     },
-    birthDate: {
-      type: DataTypes.DATE,
-    },
-    socialNumber: {
-      type: DataTypes.STRING,
-    },
     sexe: {
       type: DataTypes.ENUM(
         'M',
@@ -24,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       ),
       defaultValue: "M",
       allowNull: false,
+    },
+    birthDate: {
+      type: DataTypes.DATE,
     },
   }, {
     tableName: 'patients',
@@ -35,10 +32,10 @@ module.exports = (sequelize, DataTypes) => {
   Patients.associate = (models) => {
     Patients.belongsTo(models.practitioners, {
       foreignKey: {
-        name: 'assignedPractitionersKey',
-        field: 'assignedPractitioners',
+        name: 'assignedPractitionerIdKey',
+        field: 'assignedPractitionerId',
       },
-      as: 'assignedPractitioners',
+      as: 'assignedPractitioner',
     });
     Patients.hasMany(models.acts, {
       foreignKey: {
