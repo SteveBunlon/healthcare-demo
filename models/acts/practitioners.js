@@ -25,19 +25,19 @@ module.exports = (sequelize, DataTypes) => {
 
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships.
   Practitioners.associate = (models) => {
-    Practitioners.hasMany(models.patients, {
-      foreignKey: {
-        name: 'assignedPractitionerIdKey',
-        field: 'assignedPractitionerId',
-      },
-      as: 'assignedPractitionerPatients',
-    });
     Practitioners.hasMany(models.acts, {
       foreignKey: {
         name: 'practitionerIdKey',
         field: 'practitionerId',
       },
       as: 'acts',
+    });
+    Practitioners.hasMany(models.patients, {
+      foreignKey: {
+        name: 'assignedPractitionerIdKey',
+        field: 'assignedPractitionerId',
+      },
+      as: 'assignedPractitionerPatients',
     });
   };
 

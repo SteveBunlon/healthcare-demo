@@ -4,35 +4,29 @@ module.exports = (sequelize, DataTypes) => {
   const { Sequelize } = sequelize;
   // This section contains the fields of your model, mapped to your table's columns.
   // Learn more here: https://docs.forestadmin.com/documentation/v/v6/reference-guide/models/enrich-your-models#declaring-a-new-field-in-a-model
-  const Acts = sequelize.define('acts', {
-    date: {
-      type: DataTypes.DATE,
+  const Drugs = sequelize.define('drugs', {
+    name: {
+      type: DataTypes.STRING,
     },
-    comment: {
+    nationalid: {
       type: DataTypes.STRING,
     },
   }, {
-    tableName: 'acts',
+    tableName: 'drugs',
     timestamps: false,
     schema: process.env.DATABASE_SCHEMA,
   });
+
   // This section contains the relationships for this model. See: https://docs.forestadmin.com/documentation/v/v6/reference-guide/relationships#adding-relationships.
-  Acts.associate = (models) => {
-    Acts.belongsTo(models.patients, {
+  Drugs.associate = (models) => {
+    Drugs.belongsTo(models.providers, {
       foreignKey: {
-        name: 'patientIdKey',
-        field: 'patientId',
+        name: 'provideridKey',
+        field: 'providerid',
       },
-      as: 'patient',
-    });
-    Acts.belongsTo(models.practitioners, {
-      foreignKey: {
-        name: 'practitionerIdKey',
-        field: 'practitionerId',
-      },
-      as: 'practitioner',
+      as: 'providerid',
     });
   };
 
-  return Acts;
+  return Drugs;
 };

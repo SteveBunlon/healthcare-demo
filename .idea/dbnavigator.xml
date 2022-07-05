@@ -31,12 +31,29 @@
     <connection id="b6acfcac-852d-48f2-ab5d-926ac2302fc5">
       <console name="Connection" type="STANDARD" schema="public" session="Main"><![CDATA[REVOKE ALL ON ALL TABLES IN SCHEMA public FROM lwoqwvxroahpnk;]]></console>
     </connection>
+    <connection id="e0596615-3774-41d2-93ce-fea774dcfc43">
+      <console name="Second Database" type="STANDARD" schema="information_schema" session="Main"><![CDATA[CREATE TABLE public.providers (
+  id SERIAL PRIMARY KEY,
+  name text,
+  siret text,
+  address text
+);
+
+CREATE TABLE public.drugs (
+  id SERIAL PRIMARY KEY,
+  name text,
+  nationalId text,
+  providerId integer,
+  CONSTRAINT fk_providers FOREIGN KEY(providerId) REFERENCES public.providers
+);]]></console>
+    </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="b6acfcac-852d-48f2-ab5d-926ac2302fc5" />
+    <connection id="e0596615-3774-41d2-93ce-fea774dcfc43" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -86,6 +103,90 @@
           <type value="USER_PASSWORD" />
           <user value="lwoqwvxroahpnk" />
           <deprecated-pwd value="ZTA0NGE3ODUwOWY1NDIyMTcwMjQwN2U0Yjc2YzE3YzkwNzQ0NWY1MGY2NzdmMDE4NjljYmYxM2YxNDY4NjM2MA==" />
+        </database>
+        <properties>
+          <auto-commit value="false" />
+        </properties>
+        <ssh-settings>
+          <active value="false" />
+          <proxy-host value="" />
+          <proxy-port value="22" />
+          <proxy-user value="" />
+          <deprecated-proxy-pwd value="" />
+          <auth-type value="PASSWORD" />
+          <key-file value="" />
+          <key-passphrase value="" />
+        </ssh-settings>
+        <ssl-settings>
+          <active value="false" />
+          <certificate-authority-file value="" />
+          <client-certificate-file value="" />
+          <client-key-file value="" />
+        </ssl-settings>
+        <details>
+          <charset value="UTF-8" />
+          <session-management value="true" />
+          <ddl-file-binding value="true" />
+          <database-logging value="true" />
+          <connect-automatically value="true" />
+          <restore-workspace value="true" />
+          <restore-workspace-deep value="false" />
+          <environment-type value="default" />
+          <connectivity-timeout value="5" />
+          <idle-time-to-disconnect value="30" />
+          <idle-time-to-disconnect-pool value="5" />
+          <credential-expiry-time value="10" />
+          <max-connection-pool-size value="7" />
+          <alternative-statement-delimiter value="" />
+        </details>
+        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
+          <object-type-filter>
+            <object-type name="SCHEMA" enabled="true" />
+            <object-type name="USER" enabled="true" />
+            <object-type name="ROLE" enabled="true" />
+            <object-type name="PRIVILEGE" enabled="true" />
+            <object-type name="CHARSET" enabled="true" />
+            <object-type name="TABLE" enabled="true" />
+            <object-type name="VIEW" enabled="true" />
+            <object-type name="MATERIALIZED_VIEW" enabled="true" />
+            <object-type name="NESTED_TABLE" enabled="true" />
+            <object-type name="COLUMN" enabled="true" />
+            <object-type name="INDEX" enabled="true" />
+            <object-type name="CONSTRAINT" enabled="true" />
+            <object-type name="DATASET_TRIGGER" enabled="true" />
+            <object-type name="DATABASE_TRIGGER" enabled="true" />
+            <object-type name="SYNONYM" enabled="true" />
+            <object-type name="SEQUENCE" enabled="true" />
+            <object-type name="PROCEDURE" enabled="true" />
+            <object-type name="FUNCTION" enabled="true" />
+            <object-type name="PACKAGE" enabled="true" />
+            <object-type name="TYPE" enabled="true" />
+            <object-type name="TYPE_ATTRIBUTE" enabled="true" />
+            <object-type name="ARGUMENT" enabled="true" />
+            <object-type name="DIMENSION" enabled="true" />
+            <object-type name="CLUSTER" enabled="true" />
+            <object-type name="DBLINK" enabled="true" />
+          </object-type-filter>
+          <object-name-filters />
+        </object-filters>
+      </connection>
+      <connection id="e0596615-3774-41d2-93ce-fea774dcfc43" active="true" signed="true">
+        <database>
+          <name value="Second Database" />
+          <description value="" />
+          <database-type value="POSTGRES" />
+          <config-type value="BASIC" />
+          <database-version value="14.4" />
+          <driver-source value="BUILTIN" />
+          <driver-library value="" />
+          <driver value="" />
+          <url-type value="DATABASE" />
+          <host value="ec2-54-75-184-144.eu-west-1.compute.amazonaws.com" />
+          <port value="5432" />
+          <database value="d6l2a4kuv5lorb" />
+          <type value="USER_PASSWORD" />
+          <user value="tjoksdorjpyjyr" />
+          <deprecated-pwd value="YWIyNGZmNDM3OTgwOTU0ZGY0NWU1YmIwMmIyMmU5ZjAwMmE3ZjQyODIyYjY5ODkzZDA0YjNjN2EwNGViNTM1Ng==" />
         </database>
         <properties>
           <auto-commit value="false" />

@@ -17,10 +17,17 @@ if (process.env.DATABASE_SSL && JSON.parse(process.env.DATABASE_SSL.toLowerCase(
 }
 
 module.exports = [{
-  name: 'default',
-  modelsDir: path.resolve(__dirname, '../models'),
+  name: 'acts',
+  modelsDir: path.resolve(__dirname, '../models/acts'),
   connection: {
     url: process.env.DATABASE_URL,
     options: { ...databaseOptions },
   },
+}, {
+  name: 'drugs',
+  modelsDir: path.resolve(__dirname, '../models/drugs'),
+  connection: {
+    url: process.env.ANOTHER_DB_URL,
+    options: { ...databaseOptions }
+  }
 }];
