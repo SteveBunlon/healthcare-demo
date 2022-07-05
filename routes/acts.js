@@ -59,9 +59,29 @@ router.delete('/acts', permissionMiddlewareCreator.delete(), (request, response,
   next();
 });
 
-router.post('/action/generateAct', permissionMiddlewareCreator.smartAction(), (request, response) => {
-  //TODO do the integ here
-  response.status(200).send();
+router.post('/actions/generate-act', permissionMiddlewareCreator.smartAction(), async (req, res) => {
+  const { values } = req.body.data.attributes;
+  let promise;
+
+  switch (values.type) {
+    case 'order':
+      promise = grpcClientInstance.createOrderAct(values.renewable);
+      break;
+    case 'surgery':
+      promise = grpcClientInstance.createSurgeryAct(values.bodyPart);
+      break;
+    case 'ophthalmology':
+      promise = grpcClientInstance.createSurgeryAct(values.isFirstAct);
+      break;
+  }
+
+  const { err, response } = await promise;
+
+  if (err) {
+    return res.status(500).send(err);
+  }
+
+  return res.status(204).send();
 });
 
 module.exports = router;

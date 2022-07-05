@@ -1,15 +1,26 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
-const packageDefinition = protoLoader.loadSync('./protos/test.proto');
+const { acts } = require('../models');
 
-const hello_proto = grpc.loadPackageDefinition(packageDefinition).helloworld;
+const packageDefinition = protoLoader.loadSync(__dirname + '/protos/acts.proto');
 
-/**
- * Implements the SayHello RPC method.
- */
-function sayHello(call, callback) {
-  callback(null, { message: 'Hello ' + call.request.name });
+const acts_proto = grpc.loadPackageDefinition(packageDefinition).acts;
+
+function sendDefaultResponse(callback) {
+  callback(null, { isOk: true });
+}
+
+function createSurgeryAct(call, callback) {
+  sendDefaultResponse(callback);
+}
+
+function createOrderAct(call, callback) {
+  sendDefaultResponse(callback);
+}
+
+function createOphthalmologistAct(call, callback) {
+  sendDefaultResponse(callback);
 }
 
 /**
@@ -19,7 +30,11 @@ function sayHello(call, callback) {
 function main() {
   const server = new grpc.Server();
 
-  server.addService(hello_proto.Greeter.service, { sayHello: sayHello });
+  server.addService(acts_proto.ActsManagement.service, {
+    createSurgeryAct: createSurgeryAct,
+    createOrderAct: createOrderAct,
+    createOphthalmologistAct: createOphthalmologistAct,
+  });
 
   server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
     server.start();
