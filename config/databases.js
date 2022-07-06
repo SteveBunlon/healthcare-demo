@@ -10,13 +10,10 @@ if (process.env.DATABASE_SSL && JSON.parse(process.env.DATABASE_SSL.toLowerCase(
   const rejectUnauthorized = process.env.DATABASE_REJECT_UNAUTHORIZED;
   if (rejectUnauthorized && (JSON.parse(rejectUnauthorized.toLowerCase()) === false)) {
     databaseOptions.dialectOptions.ssl = { rejectUnauthorized: false };
-    console.log(databaseOptions.dialectOptions);
   } else {
     databaseOptions.dialectOptions.ssl = true;
   }
 }
-
-console.log(databaseOptions);
 
 module.exports = [{
   name: 'acts',
