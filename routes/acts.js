@@ -65,17 +65,17 @@ router.post('/actions/generate-act', permissionMiddlewareCreator.smartAction(), 
 
   switch (values.type) {
     case 'order':
-      promise = grpcClientInstance.createOrderAct(values.renewable);
+      promise = grpcClientInstance.createOrderAct(values.practitioner, values.patient, values.values.isRenewable);
       break;
     case 'surgery':
-      promise = grpcClientInstance.createSurgeryAct(values.bodyPart);
+      promise = grpcClientInstance.createSurgeryAct(values.practitioner, values.patient, values.bodyPart);
       break;
     case 'ophthalmology':
-      promise = grpcClientInstance.createSurgeryAct(values.isFirstAct);
+      promise = grpcClientInstance.createSurgeryAct(values.practitioner, values.patient, values.isFirst);
       break;
   }
 
-  const { err, response } = await promise;
+  const { err } = await promise;
 
   if (err) {
     return res.status(500).send(err);

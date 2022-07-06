@@ -16,6 +16,8 @@ if (process.env.DATABASE_SSL && JSON.parse(process.env.DATABASE_SSL.toLowerCase(
   }
 }
 
+console.log(databaseOptions);
+
 module.exports = [{
   name: 'acts',
   modelsDir: path.resolve(__dirname, '../models/acts'),

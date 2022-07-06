@@ -10,6 +10,16 @@ collection('acts', {
     name: 'generate act',
     type: 'global',
     fields: [{
+      field: 'patient',
+      type: 'Number',
+      isRequired: true,
+      reference: 'patients.id',
+    },{
+      field: 'practitioner',
+      type: 'Number',
+      isRequired: true,
+      reference: 'practitioners.id',
+    },{
       field: 'type',
       enums: ['order', 'surgery', 'ophthalmology'],
       isRequired: true,
@@ -19,14 +29,14 @@ collection('acts', {
     hooks: {
       change: {
         onTypeChange: ({ fields, changedField }) => {
-          if (fields.length > 1) {
-            fields = fields.splice(0, 1);
+          if (fields.length > 3) {
+            fields = fields.splice(0, 3);
           }
 
           switch (changedField.value) {
             case 'order':
               fields.push({
-                field: 'renewable',
+                field: 'isRenewable',
                 isRequired: true,
                 description: 'Check if the order is renewable',
                 type: 'Boolean',
@@ -34,7 +44,7 @@ collection('acts', {
               break;
             case 'surgery':
               fields.push({
-                field: 'body part',
+                field: 'bodyPart',
                 isRequired: true,
                 description: 'This is for statistics use only',
                 type: 'String',
@@ -42,7 +52,7 @@ collection('acts', {
               break;
             case 'ophthalmology':
               fields.push({
-                field: 'isFirstAct',
+                field: 'isFirst',
                 isRequired: true,
                 description: 'Check if this is the first ophthalmologist act',
                 type: 'Boolean',

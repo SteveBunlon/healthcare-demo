@@ -1,26 +1,62 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
-const { acts } = require('../models');
-
-const packageDefinition = protoLoader.loadSync(__dirname + '/protos/acts.proto');
-
+const packageDefinition = protoLoader.loadSync(__dirname + '/../grpc-protos/acts.proto');
 const acts_proto = grpc.loadPackageDefinition(packageDefinition).acts;
+
+const connection = require('../database');
 
 function sendDefaultResponse(callback) {
   callback(null, { isOk: true });
 }
 
-function createSurgeryAct(call, callback) {
-  sendDefaultResponse(callback);
+function sendErrorResponse(callback, error) {
+  callback(null, { isOk: false, error: error.toString()});
 }
 
-function createOrderAct(call, callback) {
-  sendDefaultResponse(callback);
+async function createSurgeryAct(call, callback) {
+  const values = call.request;
+
+  try {
+    await connection.query(`
+    INSERT INTO acts (date, comment, "patientId", "practitionerId", type)
+      VALUES (NOW(), '${values.bodyPart}', ${values.patient}, ${values.practitioner}, 'surgery');
+    `);
+
+    sendDefaultResponse(callback);
+  } catch (error) {
+    sendErrorResponse(callback, error);
+  }
 }
 
-function createOphthalmologistAct(call, callback) {
-  sendDefaultResponse(callback);
+async function createOrderAct(call, callback) {
+  const values = call.request;
+
+  try {
+    await connection.query(`
+    INSERT INTO acts (date, comment, "patientId", "practitionerId", type)
+      VALUES (NOW(), '${values.isRenewable}', ${values.patient}, ${values.practitioner}, 'surgery');
+    `);
+
+    sendDefaultResponse(callback);
+  } catch (error) {
+    sendErrorResponse(callback, error);
+  }
+}
+
+async function createOphthalmologistAct(call, callback) {
+  const values = call.request;
+
+  try {
+    await connection.query(`
+    INSERT INTO acts (date, comment, "patientId", "practitionerId", type)
+      VALUES (NOW(), '${values.isFirst}', ${values.patient}, ${values.practitioner}, 'surgery');
+    `);
+
+    sendDefaultResponse(callback);
+  } catch (error) {
+    sendErrorResponse(callback, error);
+  }
 }
 
 /**

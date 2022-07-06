@@ -97,6 +97,26 @@
       "redirect": null,
       "download": false,
       "fields": [{
+        "field": "patient",
+        "type": "Number",
+        "defaultValue": null,
+        "enums": null,
+        "isRequired": true,
+        "reference": "patients.id",
+        "description": null,
+        "position": 0,
+        "widget": null
+      }, {
+        "field": "practitioner",
+        "type": "Number",
+        "defaultValue": null,
+        "enums": null,
+        "isRequired": true,
+        "reference": "practitioners.id",
+        "description": null,
+        "position": 1,
+        "widget": null
+      }, {
         "field": "type",
         "type": "Enum",
         "defaultValue": null,
@@ -108,7 +128,7 @@
         "isRequired": true,
         "reference": null,
         "description": null,
-        "position": 0,
+        "position": 2,
         "widget": null,
         "hook": "onTypeChange"
       }],

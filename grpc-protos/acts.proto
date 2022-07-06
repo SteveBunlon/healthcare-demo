@@ -17,15 +17,21 @@ service ActsManagement {
 }
 
 message SurgeryActRequest {
-  string bodyPart = 1;
+  int32 practitioner = 1;
+  int32 patient = 2;
+  string bodyPart = 3;
 }
 
 message OrderActRequest {
-  bool isRenewable = 1;
+  int32 practitioner = 1;
+  int32 patient = 2;
+  bool isRenewable = 3;
 }
 
 message OphthalmologistActRequest {
-  bool isFirst = 1;
+  int32 practitioner = 1;
+  int32 patient = 2;
+  bool isFirst = 3;
 }
 
 message ActReply {

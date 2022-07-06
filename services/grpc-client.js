@@ -1,7 +1,9 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
-const packageDefinition = protoLoader.loadSync(__dirname + '/../grcp-server/protos/acts.proto');
+console.log(__dirname);
+
+const packageDefinition = protoLoader.loadSync(__dirname + '/../grpc-protos/acts.proto');
 const acts_proto = grpc.loadPackageDefinition(packageDefinition).acts;
 
 
@@ -13,25 +15,27 @@ class GRcpClient {
     );
   }
 
-  async createSurgeryAct(bodyPart){
+  async createSurgeryAct(practitioner, patient, bodyPart){
     return new Promise((resolve, reject) => {
-      this.client.createSurgeryAct({bodyPart}, function (err, response) {
-        resolve({err, response});
-      });
-    });
-  }
-
-  async createOrderAct(isRenewable) {
-    return new Promise((resolve, reject) => {
-      this.client.createOrderAct({ isRenewable }, function(err, response) {
+      this.client.createSurgeryAct({ practitioner, patient, bodyPart }, function (err, response) {
         resolve({ err, response });
       });
     });
   }
 
-  async createOphthalmologistAct(isFirst) {
-    this.client.createOphthalmologistAct({ isFirst }, function(err, response) {
-      Promise.resolve({ err, response });
+  async createOrderAct(practitioner, patient, isRenewable) {
+    return new Promise((resolve, reject) => {
+      this.client.createOrderAct({ practitioner, patient, isRenewable }, function(err, response) {
+        resolve({ err, response });
+      });
+    });
+  }
+
+  async createOphthalmologistAct(practitioner, patient, isFirst) {
+    return new Promise((resolve, reject) => {
+      this.client.createOphthalmologistAct({practitioner, patient, isFirst}, function (err, response) {
+        resolve({ err, response });
+      });
     });
   }
 }
